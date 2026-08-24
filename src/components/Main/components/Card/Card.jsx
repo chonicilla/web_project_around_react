@@ -1,5 +1,8 @@
 import { useContext, useState } from "react";
 import CurrentUserContext from "../../../../contexts/CurrentUserContext.js";
+import "../../../../blocks/card.css";
+import "../../../../blocks/like-button.css";
+import "../../../../blocks/trash-button.css";
 
 function TrashIcon() {
   return (

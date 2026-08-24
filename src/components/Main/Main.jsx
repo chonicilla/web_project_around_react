@@ -4,6 +4,11 @@ import Card from "./components/Card/Card";
 import Popup from "./components/Popup/Popup";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import { POPUPS } from "../App.jsx";
+import "../../blocks/page.css";
+import "../../blocks/profile.css";
+import "../../blocks/edit-button.css";
+import "../../blocks/add-button.css";
+import "../../blocks/gallery.css";
 
 function Main(props) {
   const {
