@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import avatarImg from "../../assets/profile-photo.png";
+import avatarImg from "../../images/profile-photo.png";
 import Card from "./components/Card/Card";
 import Popup from "./components/Popup/Popup";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
