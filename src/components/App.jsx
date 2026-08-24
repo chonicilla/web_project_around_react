@@ -4,7 +4,6 @@ import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import api from "../utils/api";
-import Popup from "./Main/components/Popup/Popup.jsx";
 import EditProfile from "./Main/components/form/EditProfile/EditProfile.jsx";
 import NewCard from "./Main/components/form/NewCard/NewCard.jsx";
 import EditAvatar from "./Main/components/form/EditAvatar/EditAvatar.jsx";
@@ -168,14 +167,10 @@ function App() {
           onCardDelete={handleRequestDelete}
           onOpenPopup={handleOpenPopup}
           onOpenImage={handleOpenImage}
+          popupConfig={popupConfig}
+          onClosePopup={handleClosePopup}
         />
         <Footer />
-
-        {popupConfig && (
-          <Popup onClose={handleClosePopup} title={popupConfig.title}>
-            {popupConfig.children}
-          </Popup>
-        )}
       </div>
     </CurrentUserContext.Provider>
   );

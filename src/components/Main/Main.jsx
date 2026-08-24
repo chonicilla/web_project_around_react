@@ -1,11 +1,20 @@
 import { useContext } from "react";
 import avatarImg from "../../assets/profile-photo.png";
 import Card from "./components/Card/Card";
+import Popup from "./components/Popup/Popup";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import { POPUPS } from "../App.jsx";
 
 function Main(props) {
-  const { cards, onCardLike, onCardDelete, onOpenPopup, onOpenImage } = props;
+  const {
+    cards,
+    onCardLike,
+    onCardDelete,
+    onOpenPopup,
+    onOpenImage,
+    popupConfig,
+    onClosePopup,
+  } = props;
 
   const userContext = useContext(CurrentUserContext);
   const { currentUser } = userContext;
@@ -99,6 +108,12 @@ function Main(props) {
           />
         ))}
       </ul>
+
+      {popupConfig && (
+        <Popup onClose={onClosePopup} title={popupConfig.title}>
+          {popupConfig.children}
+        </Popup>
+      )}
     </main>
   );
 }
