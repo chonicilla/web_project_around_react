@@ -41,7 +41,7 @@
 .gallery__place-name {
   font-size: 1.25rem;
   font-family: "Inter", Arial, sans-serif;
-  font-weight: 900;
+  font-weight: 700;
   max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;

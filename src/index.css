@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap");
-
+@import "./blocks/fonts.css";
 @import "./blocks/page.css";
 @import "./blocks/header.css";
 @import "./blocks/profile.css";
