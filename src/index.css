@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap");
+
+@import "./blocks/page.css";
+@import "./blocks/header.css";
+@import "./blocks/profile.css";
+@import "./blocks/edit-button.css";
+@import "./blocks/add-button.css";
+@import "./blocks/gallery.css";
+@import "./blocks/card.css";
+@import "./blocks/like-button.css";
+@import "./blocks/trash-button.css";
+@import "./blocks/popup.css";
+@import "./blocks/footer.css";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  font-weight: 400;
+}
+
+button {
+  font-family: inherit;
+}

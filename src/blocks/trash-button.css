@@ -1,0 +1,21 @@
+.trash-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+
+.trash-button .trash-icon {
+    width: 30px;
+    height: 30px;
+    fill: aliceblue;
+    opacity: 70%;
+}
+
+.trash-button:hover .trash-icon {
+    opacity: 100%;
+}

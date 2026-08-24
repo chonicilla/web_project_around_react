@@ -1,0 +1,21 @@
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.like-button .heart-icon {
+  width: 21px;
+  height: 19px;
+  transition: opacity 0.3s ease;
+}
+
+.like-button:hover {
+  opacity: 0.5;
+}
