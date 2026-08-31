@@ -4,18 +4,18 @@ import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import api from "../utils/api";
-import EditProfile from "./Main/components/form/EditProfile/EditProfile.jsx";
-import NewCard from "./Main/components/form/NewCard/NewCard.jsx";
-import EditAvatar from "./Main/components/form/EditAvatar/EditAvatar.jsx";
-import ImagePopup from "./Main/components/ImagePopup/ImagePopup.jsx";
-import PopupWithConfirmation from "./Main/components/PopupWithConfirmation/PopupWithConfirmation.jsx";
+import EditProfile from "./popup/EditProfile.jsx";
+import NewCard from "./popup/NewCard.jsx";
+import EditAvatar from "./popup/EditAvatar.jsx";
+import ImagePopup from "./popup/ImagePopup.jsx";
+import RemoveCard from "./popup/RemoveCard.jsx";
 
 export const POPUPS = {
   EDIT_PROFILE: "EDIT_PROFILE",
   NEW_CARD: "NEW_CARD",
   EDIT_AVATAR: "EDIT_AVATAR",
   IMAGE: "IMAGE",
-  CONFIRM: "CONFIRM",
+  REMOVE_CARD: "REMOVE_CARD",
 };
 
 function App() {
@@ -30,11 +30,12 @@ function App() {
   const [popup, setPopup] = useState(null);
   const [imageCard, setImageCard] = useState(null);
   const [cardToDelete, setCardToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    api
-      .getCardList()
-      .then((initialCards) => {
+    Promise.all([api.getUserInfo(), api.getCardList()])
+      .then(([userInfo, initialCards]) => {
+        setCurrentUser(userInfo);
         setCards(initialCards);
       })
       .catch((err) => {
@@ -54,8 +55,8 @@ function App() {
 
   const handleUpdateUser = async (data) => {
     try {
-      await api.setUserInfo(data);
-      setCurrentUser((prev) => ({ ...prev, ...data }));
+      const response = await api.setUserInfo(data);
+      setCurrentUser(response);
       handleClosePopup();
     } catch (error) {
       console.error(error);
@@ -64,8 +65,8 @@ function App() {
 
   const handleUpdateAvatar = async (data) => {
     try {
-      await api.setUserAvatar(data);
-      setCurrentUser((prev) => ({ ...prev, avatar: data.avatar }));
+      const response = await api.setUserAvatar(data);
+      setCurrentUser(response);
       handleClosePopup();
     } catch (error) {
       console.error(error);
@@ -88,19 +89,22 @@ function App() {
 
   function handleRequestDelete(card) {
     setCardToDelete(card);
-    setPopup(POPUPS.CONFIRM);
+    setPopup(POPUPS.REMOVE_CARD);
   }
 
   async function handleConfirmDelete() {
     if (!cardToDelete) return;
+    setIsDeleting(true);
     try {
       await api.deleteCard(cardToDelete._id);
       setCards((state) =>
         state.filter((currentCard) => currentCard._id !== cardToDelete._id),
       );
-      handleClosePopup();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsDeleting(false);
+      handleClosePopup();
     }
   }
 
@@ -145,10 +149,15 @@ function App() {
           title: null,
           children: <ImagePopup card={imageCard} />,
         };
-      case POPUPS.CONFIRM:
+      case POPUPS.REMOVE_CARD:
         return {
           title: "¿Estás seguro/a?",
-          children: <PopupWithConfirmation onConfirm={handleConfirmDelete} />,
+          children: (
+            <RemoveCard
+              onConfirm={handleConfirmDelete}
+              isLoading={isDeleting}
+            />
+          ),
         };
       default:
         return null;

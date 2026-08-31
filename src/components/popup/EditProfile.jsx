@@ -1,5 +1,5 @@
 import { useRef, useState, useContext } from "react";
-import CurrentUserContext from "../../../../../contexts/CurrentUserContext.js";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 export default function EditProfile() {
   const userContext = useContext(CurrentUserContext);
