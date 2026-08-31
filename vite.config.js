@@ -11,13 +11,22 @@ const servePublicIndexHtml = () => {
   return {
     name: "serve-public-index-html",
     configureServer(server) {
-      server.middlewares.use("/", (req, res, next) => {
+      server.middlewares.use("/", async (req, res, next) => {
         if (req.url === "/" || req.url === "/index.html") {
-          const html = fs.readFileSync(htmlPath, "utf-8");
-          res.setHeader("Content-Type", "text/html");
-          res.statusCode = 200;
-          res.end(html);
-          return;
+          try {
+            const rawHtml = fs.readFileSync(htmlPath, "utf-8");
+            const transformed = await server.transformIndexHtml(
+              req.url === "/" ? "/index.html" : req.url,
+              rawHtml,
+              req.originalUrl,
+            );
+            res.setHeader("Content-Type", "text/html");
+            res.statusCode = 200;
+            res.end(transformed);
+            return;
+          } catch (err) {
+            return next(err);
+          }
         }
         next();
       });
